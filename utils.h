@@ -12,6 +12,7 @@ namespace utils {
     GLfloat random();
     GLfloat random(GLfloat min, GLfloat max);
     int64_t now();
+    GLfloat invSqrt(GLfloat& x);
 }
 
 #endif //SOLAR_SYSTEM_UTILS_H

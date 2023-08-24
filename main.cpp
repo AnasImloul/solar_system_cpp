@@ -51,6 +51,7 @@ void display() {
     solarSystem.update(dt);
     solarSystem.draw();
 
+
     glFlush();
     glutSwapBuffers();
 

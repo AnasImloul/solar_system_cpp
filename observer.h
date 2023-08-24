@@ -21,6 +21,8 @@ public:
     void removeObserver(Observer* observer);
     virtual void notifyObservers() = 0;
 
+    void update();
+
     std::vector<Observer*>::iterator begin();  // Define iterator begin
     std::vector<Observer*>::iterator end();    // Define iterator end
 

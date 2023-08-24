@@ -3,7 +3,7 @@
 //
 
 #include "celestial.h"
-
+#include "utils.h"
 #include "constants.h"
 
 
@@ -19,16 +19,11 @@ Point Celestial::gravity(Point& pos) {
     GLfloat dx = (pos.x - this->pos.x);
     GLfloat dy = (pos.y - this->pos.y);
 
-    GLfloat distance = std::sqrt(dx * dx + dy * dy);
+    GLfloat distance = dx * dx + dy * dy;
+    GLfloat inv = distance;
 
-    if (distance < this->radius / 10) {
-        return {0, 0};
-    }
 
-    dx = dx / distance;
-    dy = dy / distance;
-
-    double constant = -G * this->mass / (distance * distance);
+    double constant = -G * this->mass / distance * utils::invSqrt(distance);
 
     return {static_cast<GLfloat>(dx * constant), static_cast<GLfloat>(dy * constant)};
 }
@@ -80,5 +75,5 @@ bool Celestial::operator>(const Celestial& other) const {
 
 void Celestial::update(float dt) {
     Particle::update(dt);
-    notifyObservers();
+    Observable::update();
 }

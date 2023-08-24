@@ -26,3 +26,9 @@ std::vector<Observer*>::iterator Observable::end() {
     return observers.end();
 }
 
+void Observable::update() {
+    if (!observers.empty()) {
+        notifyObservers();
+    }
+}
+
