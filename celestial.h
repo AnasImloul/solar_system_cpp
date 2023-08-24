@@ -31,7 +31,7 @@ public:
 
     void update(float dt) override;
 
-    void addOrbiter(Celestial& planet);
+    void addOrbiter(Celestial *planet);
 
     void removePlanet(Celestial& planet);
 

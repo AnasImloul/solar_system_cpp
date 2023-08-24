@@ -55,4 +55,12 @@ const Point& Moveable::getVelocity() const {
     return velocity;
 }
 
+GLfloat Moveable::getX() {
+    return pos.x;
+}
+
+GLfloat Moveable::getY() {
+    return pos.y;
+}
+
 

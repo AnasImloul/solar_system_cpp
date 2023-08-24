@@ -21,7 +21,11 @@ public:
 
     const Point& getPosition() const;
     const Point& getVelocity() const;
+    const Point& getAcceleration() const;
 
+
+    GLfloat getX();
+    GLfloat getY();
 
 private:
     Point pos;

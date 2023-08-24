@@ -25,3 +25,4 @@ std::vector<Observer*>::iterator Observable::begin() {
 std::vector<Observer*>::iterator Observable::end() {
     return observers.end();
 }
+

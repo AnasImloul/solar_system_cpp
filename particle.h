@@ -24,7 +24,9 @@ public:
 
 
 private:
+    Color color;
     double radius;
+
 };
 
 

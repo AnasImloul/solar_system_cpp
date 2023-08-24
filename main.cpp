@@ -70,6 +70,7 @@ void display() {
         planet.update(dt);
         planet.draw();
     }
+
     glEnd();
     glPopMatrix();
 
@@ -117,7 +118,7 @@ void mouse(int button, int state, int x, int y) {
 int main(int argc, char** argv) {
     std::srand(std::time(0));
 
-    for (int i = 0; i < 1'000'000; i++) {
+    for (int i = 0; i < 100'000; i++) {
         Point pos(utils::random(-50.f, 50.f), utils::random(-50.f, 50.f));
         GLfloat size = utils::random(1.f, 1.f);
         GLfloat mass = 1;

@@ -48,8 +48,8 @@ Point Celestial::perfectVelocity(const Celestial& planet) {
 }
 
 
-void Celestial::addOrbiter(Celestial& planet) {
-    addObserver(static_cast<Observer*>(&planet));
+void Celestial::addOrbiter(Celestial *planet) {
+    addObserver(static_cast<Observer*>(planet));
 }
 
 void Celestial::notifyObservers() {

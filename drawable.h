@@ -14,33 +14,10 @@
 
 class Drawable {
 public:
-    Drawable(Point& pos, GLfloat size, Color color);
-
-    GLfloat getX() const;
-
-    GLfloat getY() const;
-
-    GLint getSize() const;
-
-    Color getColor() const;
-
-    void setX(GLfloat x);
-
-    void setY(GLfloat y);
-
-    void update(const Point& pos);
-
-    void setSize(GLint size);
-
-    void setColor(Color color);
+    Drawable();
 
     virtual void draw() = 0;
 
-
-private:
-    Point pos;
-    GLint size;
-    Color color;
 };
 
 
