@@ -16,20 +16,26 @@ SolarSystem::SolarSystem(Celestial* star, const std::vector<Celestial*>& planets
 }
 
 void SolarSystem::addPlanet(Celestial* planet) {
-    star->addOrbiter(planet);
+    if (planet != nullptr) {
+        planets.push_back(planet);
+    }
 }
 
 void SolarSystem::draw() {
-    for (Observer* planet : *star) {
-        dynamic_cast<Celestial*>(planet)->draw();
+    for (Celestial* planet : planets) {
+        planet->draw();
     }
     star->draw();
 }
 
 void SolarSystem::update(float dt) {
-    star->update(dt);;
-    for (Observer* planet : *star) {
-        dynamic_cast<Celestial*>(planet)->update(dt);
+    star->update(dt);
+    Point acc, pos;
+    for (Celestial* planet : planets) {
+        pos = planet->getPosition();
+        acc = star->gravity(pos);
+        planet->accelerate(acc);
+        planet->update(dt);
     }
 }
 

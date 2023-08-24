@@ -8,32 +8,23 @@
 
 #include "GL/glut.h"
 
-#include "drawable.h"
-#include "observer.h"
-#include "moveable.h"
 #include "particle.h"
 #include "color.h"
 #include "point.h"
 
 #include <cmath>
 
-class Celestial : public Particle, public Observable, public Observer {
+class Celestial : public Particle {
 public:
     Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity);
+
+    Celestial();
 
     Point gravity(Point& pos);
 
     Point perfectVelocity(Point& pos);
 
-    void updateObserver(Point& acceleration) override;
-
-    void notifyObservers() override;
-
     void update(float dt) override;
-
-    void addOrbiter(Celestial *planet);
-
-    void removePlanet(Celestial& planet);
 
     bool operator<(const Celestial& other) const;
 
@@ -41,8 +32,7 @@ public:
 
 
 private:
-    double mass;
-    double radius;
+    GLfloat mass;
 };
 
 

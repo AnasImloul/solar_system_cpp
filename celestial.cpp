@@ -9,10 +9,7 @@
 
 Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity)
         : Particle(pos, radius, color, velocity),
-          Observable(),
-          Observer(),
-          mass(mass),
-          radius(radius) {}
+          mass(mass){}
 
 Point Celestial::gravity(Point& pos) {
 
@@ -44,27 +41,6 @@ Point Celestial::perfectVelocity(Point& pos) {
 }
 
 
-
-void Celestial::addOrbiter(Celestial *planet) {
-    addObserver(static_cast<Observer*>(planet));
-}
-
-void Celestial::notifyObservers() {
-    for (auto* observer : *this) {
-        Point pos = dynamic_cast<Particle*>(observer)->getPosition();
-        Point acceleration = gravity(pos);
-        observer->updateObserver(acceleration);
-    }
-}
-
-void Celestial::updateObserver(Point &acceleration) {
-    accelerate(acceleration);
-}
-
-void Celestial::removePlanet(Celestial& planet) {
-    removeObserver(static_cast<Observer*>(&planet));
-}
-
 bool Celestial::operator<(const Celestial& other) const {
     return false;
 }
@@ -75,5 +51,6 @@ bool Celestial::operator>(const Celestial& other) const {
 
 void Celestial::update(float dt) {
     Particle::update(dt);
-    Observable::update();
 }
+
+Celestial::Celestial() : Particle() {}

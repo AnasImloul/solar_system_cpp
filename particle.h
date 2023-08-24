@@ -6,7 +6,6 @@
 #define SOLAR_SYSTEM_PARTICLE_H
 
 #include "drawable.h"
-#include "observer.h"
 #include "moveable.h"
 #include "color.h"
 #include "point.h"
@@ -18,6 +17,8 @@ class Particle: public Drawable, public Moveable {
 public:
     Particle(Point& pos, GLfloat radius, Color& color, Point& velocity);
 
+    Particle();
+
     void draw() override;
 
     virtual void update(float dt);
@@ -25,7 +26,7 @@ public:
 
 private:
     Color color;
-    double radius;
+    GLfloat radius;
 
 };
 

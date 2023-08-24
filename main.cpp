@@ -17,7 +17,6 @@
 #include "solar_system.h"
 #include "vector"
 
-
 // This is the number of frames per second to render.
 static const int FPS = 160;
 
@@ -47,6 +46,12 @@ SolarSystem solarSystem;
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
+
+    float targetDt = 1 / 48.f;
+    while (dt > targetDt) {
+        solarSystem.update(targetDt);
+        dt -= targetDt;
+    }
 
     solarSystem.update(dt);
     solarSystem.draw();
@@ -88,7 +93,7 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 100'000; i++) {
+    for (int i = 0; i < 50'000; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));
@@ -96,7 +101,7 @@ int main(int argc, char** argv) {
         size = utils::random(1.f, 1.f);
         mass = 1;
         color = Color(utils::random(0.f, 0.75f), utils::random(0.25f, 0.5f), utils::random(0.5f, 1.f));
-        velocity = star->perfectVelocity(pos);
+        velocity = star->perfectVelocity(pos) * utils::random(0.5f, 1.f);
 
         auto planet = new Celestial(pos, size, mass, color, velocity);
 
