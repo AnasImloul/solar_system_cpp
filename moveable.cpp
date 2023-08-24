@@ -47,12 +47,16 @@ void Moveable::setVelocity(Point& newVelocity) {
     velocity = newVelocity;
 }
 
-const Point& Moveable::getPosition() const {
+Point Moveable::getPosition() {
     return pos;
 }
 
-const Point& Moveable::getVelocity() const {
+Point Moveable::getVelocity() {
     return velocity;
+}
+
+Point Moveable::getAcceleration() {
+    return acceleration;
 }
 
 GLfloat Moveable::getX() {
@@ -62,5 +66,8 @@ GLfloat Moveable::getX() {
 GLfloat Moveable::getY() {
     return pos.y;
 }
+
+Moveable::Moveable() : pos(), velocity(), acceleration() {}
+
 
 

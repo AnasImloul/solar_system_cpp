@@ -24,3 +24,5 @@ void Particle::draw() {
 void Particle::update(float dt) {
     move(dt);
 }
+
+Particle::Particle() : Drawable(), Moveable() {}

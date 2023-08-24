@@ -13,8 +13,6 @@ add_executable(
         point.cpp
         color.cpp
         utils.cpp
-        observer.h
-        observer.cpp
         drawable.cpp
         celestial.cpp
         moveable.cpp

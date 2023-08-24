@@ -15,17 +15,19 @@ class Moveable {
 public:
     Moveable(Point& pos, Point& velocity);
 
+    Moveable();
+
     void move(float dt);
     void accelerate(Point& acceleration);
     void setVelocity(Point& velocity);
 
-    const Point& getPosition() const;
-    const Point& getVelocity() const;
-    const Point& getAcceleration() const;
-
+    Point getPosition();
+    Point getVelocity();
+    Point getAcceleration();
 
     GLfloat getX();
     GLfloat getY();
+
 
 protected:
     Point pos;

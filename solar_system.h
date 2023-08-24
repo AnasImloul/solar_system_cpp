@@ -22,6 +22,7 @@ public:
 
 private:
     Celestial* star;
+    std::vector<Celestial*> planets;
 };
 
 #endif //SOLAR_SYSTEM_SOLAR_SYSTEM_H
