@@ -6,20 +6,18 @@
 #define SOLAR_SYSTEM_CELESTIAL_H
 
 
-#ifndef CELESTIAL_H
-#define CELESTIAL_H
-
 #include "GL/glut.h"
 
 #include "drawable.h"
 #include "observer.h"
 #include "moveable.h"
+#include "particle.h"
 #include "color.h"
 #include "point.h"
 
 #include <cmath>
 
-class Celestial : public Drawable, public Observable, public Observer, public Moveable {
+class Celestial : public Particle, public Observable, public Observer {
 public:
     Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity);
 
@@ -27,13 +25,11 @@ public:
 
     Point perfectVelocity(const Celestial& planet);
 
-    void draw() override;
-
     void updateObserver(Point& acceleration) override;
 
     void notifyObservers() override;
 
-    void update(float dt);
+    void update(float dt) override;
 
     void addOrbiter(Celestial& planet);
 
@@ -43,12 +39,11 @@ public:
 
     bool operator>(const Celestial& other) const;
 
+
 private:
     double mass;
     double radius;
 };
-
-#endif // CELESTIAL_H
 
 
 

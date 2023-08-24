@@ -23,7 +23,7 @@
 static bool spinning = true;
 
 // This is the number of frames per second to render.
-static const int FPS = 1000;
+static const int FPS = 160;
 
 // This global variable keeps track of the current orientation of the square.
 // It is better to maintain the "state" of the animation globally rather
@@ -57,7 +57,7 @@ int64_t lastTime = utils::now();
 
 GLfloat dt = 0;
 
-std::vector<Celestial> planets;
+std::vector<Particle> planets;
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -124,7 +124,7 @@ int main(int argc, char** argv) {
         // (randint(0, 192), 0.5 * randint(128, 255), randint(128, 255))
         Color color(utils::random(0.f, 0.75f), utils::random(0.25f, 0.5f), utils::random(0.5f, 1.f));
         Point velocity(utils::random(-10.f, 10.f), utils::random(-10.f, 10.f));
-        Celestial planet(pos, size, mass, color, velocity);
+        Particle planet(pos, size, color, velocity);
 
         planets.push_back(planet);
     }

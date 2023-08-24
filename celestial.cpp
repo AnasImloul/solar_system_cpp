@@ -9,8 +9,7 @@
 #include <algorithm> // For std::min
 
 Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity)
-        : Drawable(pos, radius, color),
-          Moveable(pos, velocity),
+        : Particle(pos, radius, color, velocity),
           Observable(),
           Observer(),
           mass(mass),
@@ -64,22 +63,6 @@ void Celestial::updateObserver(Point &acceleration) {
     accelerate(acceleration);
 }
 
-void Celestial::draw() {
-    glPushMatrix();
-    glTranslatef(getX(), getY(), 0);
-    glColor3f(getColor().r, getColor().g, getColor().b);
-
-    const float halfSize = getSize() / 2.0f;
-    glBegin(GL_QUADS);
-    glVertex2f(-halfSize, -halfSize); // Bottom-left
-    glVertex2f(halfSize, -halfSize);  // Bottom-right
-    glVertex2f(halfSize, halfSize);   // Top-right
-    glVertex2f(-halfSize, halfSize);  // Top-left
-    glEnd();
-
-    glPopMatrix();
-}
-
 void Celestial::removePlanet(Celestial& planet) {
     removeObserver(static_cast<Observer*>(&planet));
 }
@@ -93,7 +76,6 @@ bool Celestial::operator>(const Celestial& other) const {
 }
 
 void Celestial::update(float dt) {
-    move(dt);
+    Particle::update(dt);
     notifyObservers();
-    Drawable::update(getPosition());
 }
