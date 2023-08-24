@@ -13,12 +13,11 @@ Particle::Particle(Point &pos, GLfloat radius, Color &color, Point &velocity)
           {}
 
 
-
 void Particle::draw() {
     glColor3f(color.r, color.g, color.b);
     glPointSize(radius);
     glBegin(GL_POINTS);
-    glVertex2f(getX(), getY());
+    glVertex2f(pos.x, pos.y);
     glEnd();
 }
 

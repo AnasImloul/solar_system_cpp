@@ -17,20 +17,22 @@ SolarSystem::SolarSystem(Celestial* star, const std::vector<Celestial*>& planets
 
 void SolarSystem::addPlanet(Celestial* planet) {
     star->addOrbiter(planet);
-    planets.push_back(planet);
 }
 
-void SolarSystem::draw(GLuint win, const std::pair<float, float>& scale, const std::pair<int, int>& offset) {
-    for (Celestial* planet : planets) {
-        planet->draw();
+void SolarSystem::draw() {
+    for (Observer* planet : *star) {
+        dynamic_cast<Celestial*>(planet)->draw();
     }
-
     star->draw();
 }
 
 void SolarSystem::update(float dt) {
-    star->update(dt);
-    for (Celestial* planet : planets) {
-        planet->update(dt);
+    star->update(dt);;
+    for (Observer* planet : *star) {
+        dynamic_cast<Celestial*>(planet)->update(dt);
     }
+}
+
+void SolarSystem::setStar(Celestial *star) {
+    this->star = star;
 }

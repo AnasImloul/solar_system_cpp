@@ -15,13 +15,13 @@ public:
     SolarSystem(Celestial* star = nullptr, const std::vector<Celestial*>& planets = {});
 
     void addPlanet(Celestial* planet);
-    void draw(GLuint win, const std::pair<float, float>& scale, const std::pair<int, int>& offset);
+    void draw() override;
     void update(float dt);
 
+    void setStar(Celestial* star);
 
 private:
     Celestial* star;
-    std::vector<Celestial*> planets;
 };
 
 #endif //SOLAR_SYSTEM_SOLAR_SYSTEM_H

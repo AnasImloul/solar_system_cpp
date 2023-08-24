@@ -4,9 +4,8 @@
 
 #include "celestial.h"
 
-#include "celestial.h"
 #include "constants.h"
-#include <algorithm> // For std::min
+
 
 Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity)
         : Particle(pos, radius, color, velocity),
@@ -15,37 +14,40 @@ Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Poi
           mass(mass),
           radius(radius) {}
 
-Point Celestial::gravity(const Celestial& other) {
-    Point myPos = getPosition();
-    Point otherPos = other.getPosition();
+Point Celestial::gravity(Point& pos) {
 
-    Point deltaPos = otherPos - myPos;
-    double distance = deltaPos.magnitude();
+    GLfloat dx = (pos.x - this->pos.x);
+    GLfloat dy = (pos.y - this->pos.y);
 
-    if (distance < radius + other.radius) {
-        return Point(0, 0);
+    GLfloat distance = std::sqrt(dx * dx + dy * dy);
+
+    if (distance < this->radius / 10) {
+        return {0, 0};
     }
 
-    deltaPos.normalize();
+    dx = dx / distance;
+    dy = dy / distance;
 
-    GLfloat constant = -G * mass / (distance * distance);
+    double constant = -G * this->mass / (distance * distance);
 
-    return deltaPos * constant;
+    return {static_cast<GLfloat>(dx * constant), static_cast<GLfloat>(dy * constant)};
 }
 
-Point Celestial::perfectVelocity(const Celestial& planet) {
-    Point myPos = getPosition();
-    Point planetPos = planet.getPosition();
+Point Celestial::perfectVelocity(Point& pos) {
 
-    Point deltaPos = myPos - planetPos;
-    double distance = deltaPos.magnitude();
+    GLfloat dx = (pos.x - this->pos.x);
+    GLfloat dy = (pos.y - this->pos.y);
 
-    deltaPos.normalize();
+    GLfloat distance = std::sqrt(dx * dx + dy * dy);
+
+    dx = dx / distance;
+    dy = dy / distance;
 
     double constant = -std::sqrt(G * mass / distance);
 
-    return deltaPos * constant;
+    return Point(-dy * constant, dx * constant);
 }
+
 
 
 void Celestial::addOrbiter(Celestial *planet) {
@@ -54,7 +56,8 @@ void Celestial::addOrbiter(Celestial *planet) {
 
 void Celestial::notifyObservers() {
     for (auto* observer : *this) {
-        Point acceleration = gravity(*dynamic_cast<Celestial*>(observer));
+        Point pos = dynamic_cast<Particle*>(observer)->getPosition();
+        Point acceleration = gravity(pos);
         observer->updateObserver(acceleration);
     }
 }

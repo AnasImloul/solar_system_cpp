@@ -8,7 +8,7 @@
 #include <GL/glut.h>
 #include "color.h"
 
-GLfloat G = 6.67408e-11;
+GLfloat G = 1;
 Color color(10, 0, 0);
 
 #endif //SOLAR_SYSTEM_CONSTANTS_H

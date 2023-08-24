@@ -27,7 +27,7 @@ public:
     GLfloat getX();
     GLfloat getY();
 
-private:
+protected:
     Point pos;
     Point velocity;
     Point acceleration;

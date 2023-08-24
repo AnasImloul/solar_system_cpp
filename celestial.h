@@ -21,9 +21,9 @@ class Celestial : public Particle, public Observable, public Observer {
 public:
     Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity);
 
-    Point gravity(const Celestial& other);
+    Point gravity(Point& pos);
 
-    Point perfectVelocity(const Celestial& planet);
+    Point perfectVelocity(Point& pos);
 
     void updateObserver(Point& acceleration) override;
 

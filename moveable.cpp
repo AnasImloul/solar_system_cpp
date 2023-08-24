@@ -20,27 +20,27 @@ void Moveable::move(float dt) {
     acceleration.x = 0;
     acceleration.y = 0;
 
-    if (pos.x > 100.f) {
-        velocity.x = -velocity.x;
-        pos.x = 99.99f;
-    }
-    if (pos.x < -100.f) {
-        velocity.x = -velocity.x;
-        pos.x = -99.99f;
-    }
-    if (pos.y > 50.f) {
-        velocity.y = -velocity.y;
-        pos.y = 49.99f;
-    }
-    if (pos.y < -50.f) {
-        velocity.y = -velocity.y;
-        pos.y = -49.99f;
-    }
+//    if (pos.x > 100.f) {
+//        velocity.x = -velocity.x;
+//        pos.x = 99.99f;
+//    }
+//    if (pos.x < -100.f) {
+//        velocity.x = -velocity.x;
+//        pos.x = -99.99f;
+//    }
+//    if (pos.y > 50.f) {
+//        velocity.y = -velocity.y;
+//        pos.y = 49.99f;
+//    }
+//    if (pos.y < -50.f) {
+//        velocity.y = -velocity.y;
+//        pos.y = -49.99f;
+//    }
 }
 
 void Moveable::accelerate(Point& acc) {
-    acceleration.x = acc.y;
-    acceleration.y = acc.y;
+    acceleration.x += acc.x;
+    acceleration.y += acc.y;
 }
 
 void Moveable::setVelocity(Point& newVelocity) {
