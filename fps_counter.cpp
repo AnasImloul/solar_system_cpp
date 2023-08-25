@@ -17,7 +17,7 @@ void FPSCounter::update() {
     if (now - lastUpdate == 0) {
         fps = fpsBuffer.getAverage();
     } else {
-        fps = 1'000'000.f / static_cast<float>(now - lastUpdate);
+        fps = static_cast<float>(utils::TIME_UNIT) / static_cast<float>(now - lastUpdate);
     }
 
     fpsBuffer.add(fps);
