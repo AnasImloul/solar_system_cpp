@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
         pos = Point(distance * std::cos(angle), distance * std::sin(angle));
         size = utils::randint(1, 1);
         mass = 1;
-        color = Color(utils::randbyte(0, 0), utils::random(64, 128), utils::random(0, 0));
+        color = Color(utils::randbyte(32, 92) * 1.2, utils::random(0, 0), utils::random(64, 192) * 1.2);
         velocity = star->perfectVelocity(pos) * utils::random(0.6f, 0.8f);
 
         auto planet = new Celestial(pos, size, mass, color, velocity);

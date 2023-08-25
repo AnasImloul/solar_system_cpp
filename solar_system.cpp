@@ -28,20 +28,28 @@ void SolarSystem::draw() {
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 
-    star->draw();
 }
 
 void SolarSystem::update(float dt) {
     star->move(dt);
+
+    positions[0] = star->getX();
+    positions[1] = star->getY();
+
+    colors[0] = star->getColor().r;
+    colors[1] = star->getColor().g;
+    colors[2] = star->getColor().b;
+
     Color color;
-    for (int i = 0; i < planetCount; i++) {
-        star->gravity(planets[i]);
+    for (int i = 1; i < planetCount + 1; i++) {
+        star->gravity(planets[i - 1]);
 
-        planets[i].move(dt);
-        positions[i * 2] = planets[i].getX();
-        positions[i * 2 + 1] = planets[i].getY();
+        planets[i - 1].move(dt);
 
-        color = planets[i].getColor();
+        positions[i * 2] = planets[i - 1].getX();
+        positions[i * 2 + 1] = planets[i - 1].getY();
+
+        color = planets[i - 1].getColor();
         colors[i * 3] = color.r;
         colors[i * 3 + 1] = color.g;
         colors[i * 3 + 2] = color.b;
