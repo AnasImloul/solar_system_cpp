@@ -13,9 +13,13 @@ GLfloat utils::random(GLfloat min, GLfloat max) {
     return min + random() * (max - min);
 }
 
+GLint utils::randint(GLint min, GLint max) {
+    return min + rand() % (max - min + 1);
+}
+
 int64_t utils::now() {
     using namespace std::chrono;
-    return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
+    return duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count();
 }
 
 GLfloat utils::invSqrt(GLfloat& x) {
