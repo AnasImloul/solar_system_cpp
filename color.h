@@ -12,9 +12,6 @@ struct Color {
     GLfloat r;
     GLfloat g;
     GLfloat b;
-    GLfloat a;
-
-    Color(GLfloat r, GLfloat g, GLfloat b, GLfloat a);
 
     Color(GLfloat r, GLfloat g, GLfloat b);
 
@@ -42,11 +39,7 @@ struct Color {
 
     static Color random();
 
-    static Color random(GLfloat alpha);
-
     static Color random(GLfloat min, GLfloat max);
-
-    static Color random(GLfloat min, GLfloat max, GLfloat alpha);
 
     static Color random(Color min, Color max);
 };

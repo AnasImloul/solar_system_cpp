@@ -19,8 +19,13 @@ Point Celestial::gravity(Point& pos) {
     GLfloat distance = dx * dx + dy * dy;
     GLfloat inv = distance;
 
+    GLfloat xhalf = 0.5f * inv;
+    int i = *(int *) &inv;            // get bits for floating value
+    i = 0x5f3759df - (i >> 1);        // gives initial guess y0
+    inv = *(GLfloat *) &i;            // convert bits back to float
+    inv = inv * (1.5f - xhalf * inv * inv);    // Newton step, repeating increases accuracy
 
-    double constant = -G * this->mass / distance * utils::invSqrt(distance);
+    double constant = -G * this->mass / distance * inv;
 
     return {static_cast<GLfloat>(dx * constant), static_cast<GLfloat>(dy * constant)};
 }
