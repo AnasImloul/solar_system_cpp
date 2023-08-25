@@ -37,7 +37,7 @@ Point Celestial::perfectVelocity(Point& pos) {
 
     double constant = -std::sqrt(G * mass / distance);
 
-    return Point(-dy * constant, dx * constant);
+    return {static_cast<float>(-dy * constant), static_cast<float>(dx * constant)};
 }
 
 
