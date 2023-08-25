@@ -11,18 +11,18 @@ Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Poi
         : Particle(pos, radius, color, velocity),
           mass(mass){}
 
-Point Celestial::gravity(Point& pos) {
+void Celestial::gravity(Celestial& other) {
 
-    GLfloat dx = (pos.x - this->pos.x);
-    GLfloat dy = (pos.y - this->pos.y);
+    GLfloat dx = (other.pos.x - pos.x);
+    GLfloat dy = (other.pos.y - pos.y);
 
     GLfloat distance = dx * dx + dy * dy;
-    GLfloat inv = distance;
 
+    GLfloat constant = -G * mass / distance * utils::invSqrt(distance);
 
-    double constant = -G * this->mass / distance * utils::invSqrt(distance);
+    other.acceleration.x += dx * constant;
+    other.acceleration.y += dy * constant;
 
-    return {static_cast<GLfloat>(dx * constant), static_cast<GLfloat>(dy * constant)};
 }
 
 Point Celestial::perfectVelocity(Point& pos) {
@@ -35,9 +35,9 @@ Point Celestial::perfectVelocity(Point& pos) {
     dx = dx / distance;
     dy = dy / distance;
 
-    double constant = -std::sqrt(G * mass / distance);
+    GLfloat constant = -std::sqrt(G * mass / distance);
 
-    return Point(-dy * constant, dx * constant);
+    return {static_cast<float>(-dy * constant), static_cast<float>(dx * constant)};
 }
 
 
@@ -49,8 +49,5 @@ bool Celestial::operator>(const Celestial& other) const {
     return false;
 }
 
-void Celestial::update(float dt) {
-    Particle::update(dt);
-}
 
 Celestial::Celestial() : Particle() {}

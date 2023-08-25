@@ -5,7 +5,7 @@
 // animation with the left mouse button and stop it with the right.
 
 #ifdef __APPLE_CC__
-#include <GLUT/glut.h>
+
 #else
 #include <GL/glut.h>
 #endif
@@ -19,7 +19,7 @@
 #include "vector"
 
 // This is the number of frames per second to render.
-static const int FPS = 160;
+static const int FPS = 1'000'000;
 
 #define PI 3.14159265358979323846
 
@@ -43,7 +43,7 @@ int64_t lastTime = utils::now();
 GLfloat dt = 0;
 
 SolarSystem solarSystem;
-FPSCounter fpsCounter(1000);
+FPSCounter fpsCounter(1);
 
 
 void display() {
@@ -61,7 +61,7 @@ void display() {
 
     int64_t now = utils::now();
     int64_t elapsed = now - lastTime;
-    dt = elapsed / 1'000'000.0;
+    dt = static_cast<GLfloat>(elapsed) / static_cast<GLfloat>(utils::TIME_UNIT);
     lastTime = now;
 }
 
@@ -76,7 +76,8 @@ int main(int argc, char** argv) {
     std::srand(std::time(0));
 
     Point pos;
-    GLfloat angle, distance, size, mass;
+    GLfloat angle, distance, mass;
+    GLint size;
     Color color;
     Point velocity;
 
@@ -91,15 +92,15 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 250'000; i++) {
+    for (int i = 0; i < SolarSystem::MAX_PLANETS; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));
         pos = Point(distance * std::cos(angle), distance * std::sin(angle));
-        size = utils::random(1.f, 1.f);
+        size = utils::randint(1, 1);
         mass = 1;
         color = Color(utils::random(0.f, 0.75f), utils::random(0.25f, 0.5f), utils::random(0.5f, 1.f));
-        velocity = star->perfectVelocity(pos) * utils::random(0.5f, 1.f);
+        velocity = star->perfectVelocity(pos) * utils::random(0.6f, 0.8f);
 
         auto planet = new Celestial(pos, size, mass, color, velocity);
 

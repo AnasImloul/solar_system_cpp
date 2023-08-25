@@ -20,11 +20,9 @@ public:
 
     Celestial();
 
-    Point gravity(Point& pos);
+    void gravity(Celestial& other);
 
     Point perfectVelocity(Point& pos);
-
-    void update(float dt) override;
 
     bool operator<(const Celestial& other) const;
 

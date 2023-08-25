@@ -11,13 +11,20 @@ FPSCounter::FPSCounter(int refreshRate): refreshRate(refreshRate), lastUpdate(0)
 
 void FPSCounter::update() {
     uint64_t now = utils::now();
-    GLfloat fps = 1'000'000.f / (now - lastUpdate);
+
+    GLfloat fps;
+
+    if (now - lastUpdate == 0) {
+        fps = fpsBuffer.getAverage();
+    } else {
+        fps = static_cast<float>(utils::TIME_UNIT) / static_cast<float>(now - lastUpdate);
+    }
 
     fpsBuffer.add(fps);
 
     if (lastUpdate == 0) {
         lastUpdate = utils::now();
-    } else if (utils::now() - lastUpdate > refreshRate / 1000) {
+    } else if (utils::now() - lastUpdate > refreshRate * 1'000) {
         lastUpdate = utils::now();
     }
 }

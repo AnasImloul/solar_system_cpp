@@ -9,8 +9,10 @@
 #include <chrono>
 
 namespace utils {
+    static const int64_t TIME_UNIT = 1'000'000'000;
     GLfloat random();
     GLfloat random(GLfloat min, GLfloat max);
+    GLint randint(GLint min, GLint max);
     int64_t now();
     GLfloat invSqrt(GLfloat& x);
 }

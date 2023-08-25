@@ -4,14 +4,10 @@
 
 #include "solar_system.h"
 
-SolarSystem::SolarSystem(Celestial* star, const std::vector<Celestial*>& planets)
+SolarSystem::SolarSystem(Celestial* star)
         : Drawable(), star(star) {
     if (star != nullptr) {
         this->star = star;
-    }
-
-    for (Celestial* planet : planets) {
-        addPlanet(planet);
     }
 }
 
@@ -29,13 +25,10 @@ void SolarSystem::draw() {
 }
 
 void SolarSystem::update(float dt) {
-    star->update(dt);
-    Point acc, pos;
+    star->move(dt);
     for (Celestial* planet : planets) {
-        pos = planet->getPosition();
-        acc = star->gravity(pos);
-        planet->accelerate(acc);
-        planet->update(dt);
+        star->gravity(*planet);
+        planet->move(dt);
     }
 }
 
