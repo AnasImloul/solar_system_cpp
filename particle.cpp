@@ -21,3 +21,7 @@ void Particle::draw() {
 }
 
 Particle::Particle() : Drawable(), Moveable() {}
+
+Color Particle::getColor() const {
+    return color;
+}

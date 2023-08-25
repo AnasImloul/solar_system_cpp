@@ -17,6 +17,10 @@ GLint utils::randint(GLint min, GLint max) {
     return min + rand() % (max - min + 1);
 }
 
+char utils::randbyte(char min, char max) {
+    return (char) randint(min, max);
+}
+
 int64_t utils::now() {
     using namespace std::chrono;
     return duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count();
