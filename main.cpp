@@ -50,12 +50,6 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
 
-    float targetDt = 1 / 48.f;
-    while (dt > targetDt) {
-        solarSystem.update(targetDt);
-        dt -= targetDt;
-    }
-
     solarSystem.update(dt);
     solarSystem.draw();
 
@@ -97,7 +91,7 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 50'000; i++) {
+    for (int i = 0; i < 250'000; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));
