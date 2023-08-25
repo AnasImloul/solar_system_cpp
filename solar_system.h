@@ -12,7 +12,9 @@
 
 class SolarSystem : public Drawable {
 public:
-    SolarSystem(Celestial* star = nullptr, const std::vector<Celestial*>& planets = {});
+    static const int MAX_PLANETS = 100'000;
+
+    explicit SolarSystem(Celestial* star = nullptr);
 
     void addPlanet(Celestial* planet);
     void draw() override;

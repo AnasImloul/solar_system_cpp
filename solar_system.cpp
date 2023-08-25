@@ -4,14 +4,10 @@
 
 #include "solar_system.h"
 
-SolarSystem::SolarSystem(Celestial* star, const std::vector<Celestial*>& planets)
+SolarSystem::SolarSystem(Celestial* star)
         : Drawable(), star(star) {
     if (star != nullptr) {
         this->star = star;
-    }
-
-    for (Celestial* planet : planets) {
-        addPlanet(planet);
     }
 }
 
