@@ -12,17 +12,12 @@ Particle::Particle(Point &pos, GLfloat radius, Color &color, Point &velocity)
           color(color)
           {}
 
-
 void Particle::draw() {
     glColor3f(color.r, color.g, color.b);
     glPointSize(radius);
     glBegin(GL_POINTS);
     glVertex2f(pos.x, pos.y);
     glEnd();
-}
-
-void Particle::update(float dt) {
-    move(dt);
 }
 
 Particle::Particle() : Drawable(), Moveable() {}

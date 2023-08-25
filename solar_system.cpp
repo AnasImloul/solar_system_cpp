@@ -29,13 +29,10 @@ void SolarSystem::draw() {
 }
 
 void SolarSystem::update(float dt) {
-    star->update(dt);
-    Point acc, pos;
+    star->move(dt);
     for (Celestial* planet : planets) {
-        pos = planet->getPosition();
-        acc = star->gravity(pos);
-        planet->accelerate(acc);
-        planet->update(dt);
+        star->gravity(*planet);
+        planet->move(dt);
     }
 }
 

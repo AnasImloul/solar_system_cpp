@@ -21,8 +21,6 @@ public:
 
     void draw() override;
 
-    virtual void update(float dt);
-
 
 private:
     Color color;
