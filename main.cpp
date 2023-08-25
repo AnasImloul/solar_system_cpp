@@ -19,7 +19,7 @@
 #include "vector"
 
 // This is the number of frames per second to render.
-static const int FPS = 160;
+static const int FPS = 1000;
 
 #define PI 3.14159265358979323846
 
@@ -51,7 +51,7 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
 
     solarSystem.update(dt);
-    // solarSystem.draw();
+    solarSystem.draw();
 
     fpsCounter.update();
     std::cout << "FPS: " << fpsCounter.getFPS() << std::endl;
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 1'000'000; i++) {
+    for (int i = 0; i < SolarSystem::MAX_PLANETS; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));
