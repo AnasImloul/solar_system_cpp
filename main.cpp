@@ -15,6 +15,7 @@
 #include "utils.h"
 #include "celestial.h"
 #include "solar_system.h"
+#include "fps_counter.h"
 #include "vector"
 
 // This is the number of frames per second to render.
@@ -42,20 +43,18 @@ int64_t lastTime = utils::now();
 GLfloat dt = 0;
 
 SolarSystem solarSystem;
+FPSCounter fpsCounter(1000);
+
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
 
-    float targetDt = 1 / 48.f;
-    while (dt > targetDt) {
-        solarSystem.update(targetDt);
-        dt -= targetDt;
-    }
-
     solarSystem.update(dt);
     solarSystem.draw();
 
+    fpsCounter.update();
+    std::cout << "FPS: " << fpsCounter.getFPS() << std::endl;
 
     glFlush();
     glutSwapBuffers();
@@ -63,7 +62,6 @@ void display() {
     int64_t now = utils::now();
     int64_t elapsed = now - lastTime;
     dt = elapsed / 1'000'000.0;
-    std::cout << "FPS: " << 1.0 / dt << std::endl;
     lastTime = now;
 }
 
@@ -93,7 +91,7 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 50'000; i++) {
+    for (int i = 0; i < 250'000; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));

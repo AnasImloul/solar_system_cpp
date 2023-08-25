@@ -4,6 +4,7 @@
 
 #include "utils.h"
 
+
 GLfloat utils::random() {
     return (GLfloat) rand() / RAND_MAX;
 }
