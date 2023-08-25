@@ -18,10 +18,11 @@ void Celestial::gravity(Celestial& other) {
 
     GLfloat distance = dx * dx + dy * dy;
 
-    double constant = -G * this->mass / distance * utils::invSqrt(distance);
+    GLfloat constant = -G * mass / distance * utils::invSqrt(distance);
 
     other.acceleration.x += dx * constant;
     other.acceleration.y += dy * constant;
+
 }
 
 Point Celestial::perfectVelocity(Point& pos) {

@@ -51,7 +51,7 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
 
     solarSystem.update(dt);
-    solarSystem.draw();
+    // solarSystem.draw();
 
     fpsCounter.update();
     std::cout << "FPS: " << fpsCounter.getFPS() << std::endl;
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     solarSystem.setStar(star);
 
 
-    for (int i = 0; i < 250'000; i++) {
+    for (int i = 0; i < 1'000'000; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
         distance = std::sqrt(utils::random(1.f, 20000.f));
