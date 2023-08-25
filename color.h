@@ -9,39 +9,13 @@
 
 
 struct Color {
-    GLfloat r;
-    GLfloat g;
-    GLfloat b;
+    char r;
+    char g;
+    char b;
 
-    Color(GLfloat r, GLfloat g, GLfloat b);
+    Color(char r, char g, char b);
 
     Color();
-
-    Color operator+(const Color& other) const;
-
-    Color operator-(const Color& other) const;
-
-    Color operator*(const GLfloat& scalar);
-
-    Color operator/(const GLfloat& scalar);
-
-    Color& operator+=(const Color& other);
-
-    Color& operator-=(const Color& other);
-
-    Color& operator*=(const GLfloat& scalar);
-
-    Color& operator/=(const GLfloat& scalar);
-
-    bool operator==(const Color& other);
-
-    bool operator!=(const Color& other);
-
-    static Color random();
-
-    static Color random(GLfloat min, GLfloat max);
-
-    static Color random(Color min, Color max);
 };
 
 

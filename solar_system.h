@@ -12,11 +12,11 @@
 
 class SolarSystem : public Drawable {
 public:
-    static const int MAX_PLANETS = 1'000'000;
+    static const int MAX_PLANETS = 500'000;
 
     explicit SolarSystem(Celestial* star = nullptr);
 
-    void addPlanet(Celestial* planet);
+    void addPlanet(Celestial& planet);
     void draw() override;
     void update(float dt);
 
@@ -24,7 +24,11 @@ public:
 
 private:
     Celestial* star;
-    std::vector<Celestial*> planets;
+    Celestial planets[MAX_PLANETS + 1];
+    int planetCount = 0;
+    GLfloat positions[(MAX_PLANETS + 1) * 2];
+    char colors[(MAX_PLANETS + 1) * 3];
+
 };
 
 #endif //SOLAR_SYSTEM_SOLAR_SYSTEM_H

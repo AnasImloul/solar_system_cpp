@@ -13,6 +13,7 @@ namespace utils {
     GLfloat random();
     GLfloat random(GLfloat min, GLfloat max);
     GLint randint(GLint min, GLint max);
+    char randbyte(char min, char max);
     int64_t now();
     GLfloat invSqrt(GLfloat& x);
 }

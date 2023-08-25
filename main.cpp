@@ -82,9 +82,9 @@ int main(int argc, char** argv) {
     Point velocity;
 
     pos = Point(0, 0);
-    size = 10;
+    size = 1;
     mass = 100;
-    color = Color(utils::random(0.f, 0.75f), utils::random(0.25f, 0.5f), utils::random(0.5f, 1.f));
+    color = Color(utils::randbyte(0, 192), utils::random(64, 128), utils::random(128, 255));
     velocity = Point(0, 0);
 
     auto star = new Celestial(pos, size, mass, color, velocity);
@@ -99,12 +99,12 @@ int main(int argc, char** argv) {
         pos = Point(distance * std::cos(angle), distance * std::sin(angle));
         size = utils::randint(1, 1);
         mass = 1;
-        color = Color(utils::random(0.f, 0.75f), utils::random(0.25f, 0.5f), utils::random(0.5f, 1.f));
+        color = Color(utils::randbyte(32, 92) * 1.2, utils::random(0, 0), utils::random(64, 192) * 1.2);
         velocity = star->perfectVelocity(pos) * utils::random(0.6f, 0.8f);
 
         auto planet = new Celestial(pos, size, mass, color, velocity);
 
-        solarSystem.addPlanet(planet);
+        solarSystem.addPlanet(*planet);
     }
 
 

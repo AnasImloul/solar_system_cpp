@@ -21,6 +21,8 @@ public:
 
     void draw() override;
 
+    Color getColor() const;
+
 
 private:
     Color color;
