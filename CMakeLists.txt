@@ -16,6 +16,6 @@ add_executable(
         drawable.cpp
         celestial.cpp
         moveable.cpp
-        solar_system.h particle.h particle.cpp solar_system.cpp)
+        solar_system.h particle.h particle.cpp solar_system.cpp buffer.h buffer.cpp fps_counter.h fps_counter.cpp)
 
 target_link_libraries(solar_system -lOpenGL32 -lfreeGLUT)
