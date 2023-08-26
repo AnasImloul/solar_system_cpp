@@ -28,6 +28,7 @@ public:
 
     bool operator>(const Celestial& other) const;
 
+    GLfloat getMass() const ;
 
 private:
     GLfloat mass;
