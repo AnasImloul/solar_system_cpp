@@ -12,7 +12,7 @@
 
 class SolarSystem : public Drawable {
 public:
-    static const int MAX_PLANETS = 500'000;
+    static const int MAX_PLANETS = 1'000'000;
 
     explicit SolarSystem(Celestial* star = nullptr);
 
