@@ -63,7 +63,12 @@ void SolarSystem::draw() {
 
 void SolarSystem::update(float dt) {
 
+    dt *= 2;
+
     for (int index = 1; index < planetCount + 1; index++) {
+
+        if ((index & 1) == (updates & 1)) continue;
+
         // calculate gravity
         GLfloat dx = (positions[2 * index] - positions[0]);
         GLfloat dy = (positions[2 * index + 1] - positions[1]);
@@ -80,4 +85,6 @@ void SolarSystem::update(float dt) {
         velocities[2 * index + 1] += dy * constant * dt;
 
     }
+
+    updates++;
 }

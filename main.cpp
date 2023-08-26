@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
         size = utils::randint(1, 1);
         mass = 1;
         color = Color(utils::randbyte(32, 92) * 1.2, utils::random(0, 0), utils::random(64, 192) * 1.2);
-        velocity = star->perfectVelocity(pos) * utils::random(0.6f, 0.8f);
+        velocity = star->perfectVelocity(pos);
 
         auto planet = new Celestial(pos, size, mass, color, velocity);
 

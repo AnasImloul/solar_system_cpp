@@ -29,6 +29,7 @@ private:
     GLfloat velocities[(MAX_PLANETS + 1) * 2];
     char colors[(MAX_PLANETS + 1) * 3];
     GLfloat mass;
+    int updates = 0;
 
 };
 
