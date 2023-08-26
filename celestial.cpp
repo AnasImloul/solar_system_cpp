@@ -53,5 +53,5 @@ bool Celestial::operator>(const Celestial& other) const {
 Celestial::Celestial() : Particle() {}
 
 GLfloat Celestial::getMass() const {
-    return 0;
+    return mass;
 }

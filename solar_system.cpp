@@ -3,17 +3,42 @@
 //
 
 #include "solar_system.h"
+#include "utils.h"
+
 
 SolarSystem::SolarSystem(Celestial* star)
-        : Drawable(), star(star) {
-    if (star != nullptr) {
-        this->star = star;
-    }
+        : Drawable() {
+    if (star == nullptr) return;
+
+    positions[0] = star->getX();
+    positions[1] = star->getY();
+
+    colors[0] = star->getColor().r;
+    colors[1] = star->getColor().g;
+    colors[2] = star->getColor().b;
+
+
+
+    masses[0] = star->getMass();
 
 }
 
 void SolarSystem::addPlanet(Celestial& planet) {
-    planets[planetCount++] = planet;
+    if (planetCount == MAX_PLANETS) return;
+
+    planetCount++;
+
+    positions[planetCount * 2] = planet.getX();
+    positions[planetCount * 2 + 1] = planet.getY();
+
+    velocities[planetCount * 2] = planet.getVelocity().x;
+    velocities[planetCount * 2 + 1] = planet.getVelocity().y;
+
+    colors[planetCount * 3] = planet.getColor().r;
+    colors[planetCount * 3 + 1] = planet.getColor().g;
+    colors[planetCount * 3 + 2] = planet.getColor().b;
+
+    masses[planetCount] = planet.getMass();
 }
 
 void SolarSystem::draw() {
@@ -27,12 +52,19 @@ void SolarSystem::draw() {
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
-
 }
 
 void SolarSystem::update(float dt) {
-    star->move(dt);
+    move(0, dt);
 
+    for (int i = 1; i < planetCount + 1; i++) {
+        applyGravity(i);
+        move(i, dt);
+
+    }
+}
+
+void SolarSystem::setStar(Celestial* star) {
     positions[0] = star->getX();
     positions[1] = star->getY();
 
@@ -40,22 +72,33 @@ void SolarSystem::update(float dt) {
     colors[1] = star->getColor().g;
     colors[2] = star->getColor().b;
 
-    Color color;
-    for (int i = 1; i < planetCount + 1; i++) {
-        star->gravity(planets[i - 1]);
-
-        planets[i - 1].move(dt);
-
-        positions[i * 2] = planets[i - 1].getX();
-        positions[i * 2 + 1] = planets[i - 1].getY();
-
-        color = planets[i - 1].getColor();
-        colors[i * 3] = color.r;
-        colors[i * 3 + 1] = color.g;
-        colors[i * 3 + 2] = color.b;
-    }
+    masses[0] = star->getMass();
 }
 
-void SolarSystem::setStar(Celestial* star) {
-    this->star = star;
+void SolarSystem::move(int index, float dt) {
+
+    positions[2 * index] += velocities[2 * index] * dt;
+    positions[2 * index + 1] += velocities[2 * index + 1] * dt;
+
+    velocities[2 * index] += accelerations[2 * index] * dt;
+    velocities[2 * index + 1] += accelerations[2 * index + 1] * dt;
+
+    accelerations[2 * index] = 0;
+    accelerations[2 * index + 1] = 0;
+
+
+}
+
+void SolarSystem::applyGravity(int index) {
+
+    GLfloat dx = (positions[2 * index] - positions[0]);
+    GLfloat dy = (positions[2 * index + 1] - positions[1]);
+
+    GLfloat distance = dx * dx + dy * dy;
+
+    GLfloat constant = - masses[0] / distance * utils::invSqrt(distance);
+
+    accelerations[2 * index] += dx * constant;
+    accelerations[2 * index + 1] += dy * constant;
+
 }
