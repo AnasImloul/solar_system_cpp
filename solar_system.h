@@ -22,17 +22,13 @@ public:
 
     void setStar(Celestial* star);
 
-    inline void move(int index, float dt);
-    inline void applyGravity(int index);
-
 
 private:
     int planetCount = 0;
     GLfloat positions[(MAX_PLANETS + 1) * 2];
     GLfloat velocities[(MAX_PLANETS + 1) * 2];
-    GLfloat accelerations[(MAX_PLANETS + 1) * 2];
-    GLfloat masses[MAX_PLANETS + 1];
     char colors[(MAX_PLANETS + 1) * 3];
+    GLfloat mass;
 
 };
 
