@@ -55,7 +55,7 @@ void SolarSystem::draw() {
 
     glVertexPointer(2,GL_FLOAT,0, positions) ;
     glColorPointer(3,GL_UNSIGNED_BYTE,0,colors) ;
-    glDrawArrays(GL_POINTS,0,MAX_PLANETS) ;
+    glDrawArrays(GL_POINTS,0,planetCount + 1) ;
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
@@ -81,7 +81,7 @@ void SolarSystem::update(float dt) {
 
         GLfloat distance = dx * dx + dy * dy;
 
-        GLfloat constant = -mass / distance * utils::invSqrt(distance);
+        GLfloat constant = -utils::G * mass / distance * utils::invSqrt(distance);
 
         accelerations[2 * index] = dx * constant;
         accelerations[2 * index + 1] = dy * constant;
@@ -90,6 +90,7 @@ void SolarSystem::update(float dt) {
 
     // update position and velocity
     for (int index = 1; index < planetCount + 1; index++) {
+
         positions[2 * index] += velocities[2 * index] * dt;
         positions[2 * index + 1] += velocities[2 * index + 1] * dt;
 

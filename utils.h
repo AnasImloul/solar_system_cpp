@@ -9,6 +9,7 @@
 #include <chrono>
 
 namespace utils {
+    static const GLfloat G = 1;
     static const int64_t TIME_UNIT = 1'000'000'000;
     GLfloat random();
     GLfloat random(GLfloat min, GLfloat max);

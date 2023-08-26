@@ -4,7 +4,7 @@
 
 #include "celestial.h"
 #include "utils.h"
-#include "constants.h"
+
 
 
 Celestial::Celestial(Point& pos, GLfloat radius, GLfloat mass, Color& color, Point& velocity)
@@ -18,7 +18,7 @@ void Celestial::gravity(Celestial& other) {
 
     GLfloat distance = dx * dx + dy * dy;
 
-    GLfloat constant = -G * mass / distance * utils::invSqrt(distance);
+    GLfloat constant = -utils::G * mass / distance * utils::invSqrt(distance);
 
     other.acceleration.x += dx * constant;
     other.acceleration.y += dy * constant;
@@ -35,7 +35,7 @@ Point Celestial::perfectVelocity(Point& pos) {
     dx = dx / distance;
     dy = dy / distance;
 
-    GLfloat constant = -std::sqrt(G * mass / distance);
+    GLfloat constant = -std::sqrt(utils::G * mass / distance);
 
     return {static_cast<float>(-dy * constant), static_cast<float>(dx * constant)};
 }
