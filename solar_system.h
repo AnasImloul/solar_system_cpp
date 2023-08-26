@@ -13,6 +13,7 @@
 class SolarSystem : public Drawable {
 public:
     static const int MAX_PLANETS = 1'000'000;
+    static const int CHUNKS = 2;
 
     explicit SolarSystem(Celestial* star = nullptr);
 
@@ -27,9 +28,10 @@ private:
     int planetCount = 0;
     GLfloat positions[(MAX_PLANETS + 1) * 2];
     GLfloat velocities[(MAX_PLANETS + 1) * 2];
+    GLfloat accelerations[(MAX_PLANETS + 1) * 2];
     char colors[(MAX_PLANETS + 1) * 3];
     GLfloat mass;
-    int updates = 0;
+    int chunk = 0;
 
 };
 

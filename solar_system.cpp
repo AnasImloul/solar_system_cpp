@@ -63,11 +63,17 @@ void SolarSystem::draw() {
 
 void SolarSystem::update(float dt) {
 
-    dt *= 2;
+    int start, end;
 
-    for (int index = 1; index < planetCount + 1; index++) {
+    if (chunk < CHUNKS - 1) {
+        start = (planetCount / CHUNKS) * chunk + 1;
+        end = (planetCount / CHUNKS) * (chunk + 1) + 1;
+    } else {
+        start = (planetCount / CHUNKS) * chunk + 1;
+        end = planetCount + 1;
+    }
 
-        if ((index & 1) == (updates & 1)) continue;
+    for (int index = start; index < end; index++) {
 
         // calculate gravity
         GLfloat dx = (positions[2 * index] - positions[0]);
@@ -75,16 +81,21 @@ void SolarSystem::update(float dt) {
 
         GLfloat distance = dx * dx + dy * dy;
 
-        GLfloat constant = - mass / distance * utils::invSqrt(distance);
+        GLfloat constant = -mass / distance * utils::invSqrt(distance);
 
-        // update position and velocity
+        accelerations[2 * index] = dx * constant;
+        accelerations[2 * index + 1] = dy * constant;
+    }
+
+
+    // update position and velocity
+    for (int index = 1; index < planetCount + 1; index++) {
         positions[2 * index] += velocities[2 * index] * dt;
         positions[2 * index + 1] += velocities[2 * index + 1] * dt;
 
-        velocities[2 * index] += dx * constant * dt;
-        velocities[2 * index + 1] += dy * constant * dt;
-
+        velocities[2 * index] += accelerations[2 * index] * dt;
+        velocities[2 * index + 1] += accelerations[2 * index + 1] * dt;
     }
 
-    updates++;
+    chunk = (chunk + 1) % CHUNKS;
 }
