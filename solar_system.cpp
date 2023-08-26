@@ -49,7 +49,6 @@ void SolarSystem::draw() {
     glColorPointer(3,GL_UNSIGNED_BYTE,0,colors) ;
     glDrawArrays(GL_POINTS,0,MAX_PLANETS) ;
 
-
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 }
@@ -57,9 +56,22 @@ void SolarSystem::draw() {
 void SolarSystem::update(float dt) {
     move(0, dt);
 
-    for (int i = 1; i < planetCount + 1; i++) {
-        applyGravity(i);
-        move(i, dt);
+    for (int index = 1; index < planetCount + 1; index++) {
+        GLfloat dx = (positions[2 * index] - positions[0]);
+        GLfloat dy = (positions[2 * index + 1] - positions[1]);
+
+        GLfloat distance = dx * dx + dy * dy;
+
+        GLfloat constant = - masses[0] / distance * utils::invSqrt(distance);
+
+        positions[2 * index] += velocities[2 * index] * dt;
+        positions[2 * index + 1] += velocities[2 * index + 1] * dt;
+
+        velocities[2 * index] += (accelerations[2 * index] + dx * constant) * dt;
+        velocities[2 * index + 1] += (accelerations[2 * index + 1] + dy * constant) * dt;
+
+        accelerations[2 * index] = 0;
+        accelerations[2 * index + 1] = 0;
 
     }
 }
@@ -75,7 +87,7 @@ void SolarSystem::setStar(Celestial* star) {
     masses[0] = star->getMass();
 }
 
-void SolarSystem::move(int index, float dt) {
+inline void SolarSystem::move(int index, float dt) {
 
     positions[2 * index] += velocities[2 * index] * dt;
     positions[2 * index + 1] += velocities[2 * index + 1] * dt;
@@ -89,7 +101,7 @@ void SolarSystem::move(int index, float dt) {
 
 }
 
-void SolarSystem::applyGravity(int index) {
+inline void SolarSystem::applyGravity(int index) {
 
     GLfloat dx = (positions[2 * index] - positions[0]);
     GLfloat dy = (positions[2 * index + 1] - positions[1]);

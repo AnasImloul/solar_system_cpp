@@ -22,9 +22,8 @@ public:
 
     void setStar(Celestial* star);
 
-    void move(int index, float dt);
-
-    void applyGravity(int index);
+    inline void move(int index, float dt);
+    inline void applyGravity(int index);
 
 
 private:
