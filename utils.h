@@ -12,6 +12,7 @@ namespace utils {
     static const int64_t TIME_UNIT = 1'000'000'000;
     GLfloat random();
     GLfloat random(GLfloat min, GLfloat max);
+    GLfloat randSqrt(GLfloat min, GLfloat max);
     GLint randint(GLint min, GLint max);
     char randbyte(char min, char max);
     int64_t now();

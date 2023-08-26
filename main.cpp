@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     for (int i = 0; i < SolarSystem::MAX_PLANETS; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
-        distance = std::sqrt(utils::random(1.f, 20000.f));
+        distance = utils::randSqrt(1.f, 400.f);
         pos = Point(distance * std::cos(angle), distance * std::sin(angle));
         size = utils::randint(1, 1);
         mass = 1;

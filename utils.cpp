@@ -2,6 +2,7 @@
 // Created by imloul on 8/23/2023.
 //
 
+#include <cmath>
 #include "utils.h"
 
 
@@ -11,6 +12,10 @@ GLfloat utils::random() {
 
 GLfloat utils::random(GLfloat min, GLfloat max) {
     return min + random() * (max - min);
+}
+
+GLfloat utils::randSqrt(GLfloat min, GLfloat max) {
+    return std::sqrt(random(min * min, max * max));
 }
 
 GLint utils::randint(GLint min, GLint max) {
