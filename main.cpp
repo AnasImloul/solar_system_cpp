@@ -20,6 +20,7 @@
 
 // This is the number of frames per second to render.
 static const int FPS = 1'000'000;
+static const int MIN_FPS = 1;
 
 #define PI 3.14159265358979323846
 
@@ -49,6 +50,10 @@ FPSCounter fpsCounter(1);
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
+
+    if (dt > 1 / MIN_FPS) {
+        dt = 1 / MIN_FPS;
+    }
 
     solarSystem.update(dt);
     solarSystem.draw();
