@@ -18,6 +18,13 @@
 #include "fps_counter.h"
 #include "vector"
 
+
+// fast io
+void fastIO(){
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
+}
+
 // This is the number of frames per second to render.
 static const int FPS = 1'000'000;
 static const int MIN_FPS = 1;
@@ -96,20 +103,22 @@ int main(int argc, char** argv) {
 
     solarSystem.setStar(star);
 
+    Celestial planet;
 
     for (int i = 0; i < SolarSystem::MAX_PLANETS; i++) {
 
         angle = utils::random(0.f, 2 * M_PI);
-        distance = utils::randSqrt(1.f, 400.f);
+        distance = utils::randSqrt(1.f, 100.f);
         pos = Point(distance * std::cos(angle), distance * std::sin(angle));
         size = utils::randint(1, 1);
         mass = 1;
         color = Color(utils::randbyte(32, 92) * 1.2, utils::random(0, 0), utils::random(64, 192) * 1.2);
-        velocity = star->perfectVelocity(pos) * utils::random(0.6, 1.f);
+        velocity = star->perfectVelocity(pos) * utils::random(0.6, 1.0f);
+        planet = {pos, static_cast<GLfloat>(size), mass, color, velocity};
 
-        auto planet = new Celestial(pos, size, mass, color, velocity);
+        solarSystem.addPlanet(planet);
 
-        solarSystem.addPlanet(*planet);
+
     }
 
 
