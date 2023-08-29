@@ -13,10 +13,9 @@
 class SolarSystem : public Drawable {
 public:
     static const int MAX_PLANETS = 1'000'000;
-    static const int CHUNKS = 4;
+    static const int CHUNKS = 16;
 
     explicit SolarSystem(Celestial* star = nullptr);
-
     void addPlanet(Celestial& planet);
     void draw() override;
     void update(float dt);
